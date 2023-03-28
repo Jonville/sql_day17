@@ -1,0 +1,64 @@
+---------------------20230328----------------------
+
+SEQUENCE
+	--! 시퀀스 => 숫자를 (특정패턴을 가지고) 자동적으로 증가시켜줌 !
+	
+	CREATE SEQUENCE T_SEQ   -- T_SEQ 라고 시퀀스 지정
+	INCREMENT BY 1   -- 한번 실행 할때마다 N씩증가
+	START WITH 1    -- N부터 시작한다는 의미 / 시작값
+	MINVALUE 1      --최소값
+	MAXVALUE 1000   -- 최대값
+	--CYCLE           -- 1 부터 1000 까지 한바퀴 돌고 또 돌건지
+	NOCYCLE         --  말건지
+	;
+	
+	INSERT INTO TEST_BOARD VALUES(T_SEQ.NEXTVAL , '안녕하세요');
+	
+	SELECT T_SEQ2.CURRVAL           -- 현재 시퀀스의 값을 알려줌
+	FROM DUAL
+	;
+	
+VIEW
+	--! 필요한 정보 (일부분만) 들만 모아놓고 제공해줄수있음 !
+            -- 민감한 정보는 뺄때 주로 사용
+			-- 데이터 제공이 목적임
+            -- 수정을 막게 해야함
+			
+	예시 )
+		CREATE VIEW VI_EMP
+		AS        
+			SELECT EMPNO , ENAME, JOB, MGR, HIREDATE
+			FROM EMP
+			WITH READ ONLY          -- 읽기 권한만 줌 !!!! 쓰기X 삭제X 
+		;
+		
+PLSQL (Procedure)			-- !!!정말중요함!!!
+	SQL 안에서 프로그래밍을 한다. (절차적 프로그래밍 , C 언어 처럼)
+	
+	1.DECLARE - 선언 (옵션)
+			-- 변수나 상수를 선언
+	2.BEGIN - 실행	(필수)
+			-- 실질적으로 실행시켜주는 부분 (조건문, 반복문 등등)
+	3.EXCEPTION - 예외처리	(옵션)
+	
+	4.END - 종료	(필수)
+	
+	Trigger - INSERT, DELETE, UPDATE ... 할때 누가 해당테이블에 어떤 명령을 했는지 기록 (LOG 기록 같은거) 
+	
+PROCEDURE 
+	-- 자바에서 메소드 호출해서 쓰는것처럼 쓰는친구
+	
+	CREATE OR REPLACE PROCEDURE 프로시저명
+		(매개변수 IN 타입)
+	IS
+	BEGIN
+	메소드
+	END 프로시정명;
+	/
+	
+	EXECUTE 프로시저명 (값); -- 호출시켜서 입력하는것
+
+	
+	세개는 본문참조
+	%TYPE , %ROWTYPE , IF ~ THEN ~ END IF
+
